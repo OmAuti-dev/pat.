@@ -1,83 +1,86 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { TrendingUp } from "lucide-react"
+import { Pie, PieChart } from "recharts"
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+const chartData = [
+  { status: "todo", tasks: 275, fill: "var(--color-todo)" },
+  { status: "pending", tasks: 200, fill: "var(--color-pending)" },
+  { status: "completed", tasks: 187, fill: "var(--color-completed)" },
+  { status: "unassigned", tasks: 173, fill: "var(--color-unassigned)" },
+]
+
+const chartConfig = {
+  tasks: {
+    label: "tasks",
+  },
+  todo: {
+    label: "todo",
+    color: "hsl(var(--chart-1))",
+  },
+  pending: {
+    label: "pending",
+    color: "hsl(var(--chart-2))",
+  },
+  completed: {
+    label: "completed",
+    color: "hsl(var(--chart-3))",
+  },
+  unassigned: {
+    label: "unassigned",
+    color: "hsl(var(--chart-4))",
+  },
+ 
+} satisfies ChartConfig
 
 export function StatusChart() {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <div>
-          <CardTitle>Status overview</CardTitle>
-          <p className="text-sm text-muted-foreground">
-            Get a snapshot of the status of your issues.{" "}
-            <a href="#" className="text-primary underline">
-              View all issues
-            </a>
-          </p>
-        </div>
+    <Card className="flex flex-col">
+      <CardHeader className="items-center pb-0">
+        <CardTitle>Pie Chart - Donut</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="relative flex aspect-square w-full max-w-[200px] mx-auto">
-          <svg className="h-full w-full -rotate-90" viewBox="0 0 100 100">
-            <circle
-              className="stroke-[10] stroke-primary fill-none"
-              r="45"
-              cx="50"
-              cy="50"
-              strokeDasharray="70 282.7"
+      <CardContent className="flex-1 pb-0">
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto aspect-square max-h-[250px]"
+        >
+          <PieChart>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
             />
-            <circle
-              className="stroke-[10] stroke-orange-500 fill-none"
-              r="45"
-              cx="50"
-              cy="50"
-              strokeDasharray="50 282.7"
-              strokeDashoffset="-70"
+            <Pie
+              data={chartData}
+              dataKey="tasks"
+              nameKey="status"
+              innerRadius={60}
             />
-            <circle
-              className="stroke-[10] stroke-pink-500 fill-none"
-              r="45"
-              cx="50"
-              cy="50"
-              strokeDasharray="40 282.7"
-              strokeDashoffset="-120"
-            />
-            <circle
-              className="stroke-[10] stroke-blue-500 fill-none"
-              r="45"
-              cx="50"
-              cy="50"
-              strokeDasharray="30 282.7"
-              strokeDashoffset="-160"
-            />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              <div className="text-3xl font-bold">22</div>
-              <div className="text-xs text-muted-foreground">Total issues</div>
-            </div>
-          </div>
-        </div>
-        <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-primary" />
-            <div className="text-sm">To Do: 10</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-orange-500" />
-            <div className="text-sm">Ready: 4</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-pink-500" />
-            <div className="text-sm">In Progress: 5</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-full bg-blue-500" />
-            <div className="text-sm">Launched: 3</div>
-          </div>
-        </div>
+          </PieChart>
+        </ChartContainer>
       </CardContent>
+      <CardFooter className="flex-col gap-2 text-sm">
+        <div className="flex items-center gap-2 font-medium leading-none">
+          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+          Showing total visitors for the last 6 months
+        </div>
+      </CardFooter>
     </Card>
   )
 }
-

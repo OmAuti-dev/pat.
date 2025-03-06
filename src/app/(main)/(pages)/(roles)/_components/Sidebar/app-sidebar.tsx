@@ -46,26 +46,37 @@ const data = {
         {
           title: "Overview",
           url: "#",
+          allowedRoles:["client","employee","teamleader","manager"]
         },
         {
           title: "board",
           url: "#",
+          allowedRoles:["employee","teamleader","manager"]
+
         },
         {
           title: "List",
-          url: "/manager/list",
+          url: "manager/list",
+          allowedRoles:["employee","teamleader","manager"]
+
         },
         {
           title: "calender",
           url: "#",
+          allowedRoles:["employee","teamleader","manager"]
+
         },
         {
           title: "Attachments",
           url: "#",
+          allowedRoles:["employee","teamleader","manager"]
+
         },
         {
           title: "Reports",
           url: "#",
+          allowedRoles:["employee","teamleader","manager"]
+
         },
       ],
       
