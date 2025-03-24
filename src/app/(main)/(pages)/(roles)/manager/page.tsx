@@ -17,7 +17,7 @@ export default function Page() {
         <button>
         <MetricCard
           count={3}
-          label="completed"
+          label="to-do"
           timeframe="in the last 7 days"
           icon={<CheckCircle className="h-4 w-4 text-green-500" />}
         />
@@ -27,7 +27,7 @@ export default function Page() {
 
         <MetricCard
           count={22}
-          label="updated"
+          label="pending"
           timeframe="in the last 7 days"
           icon={<FileEdit className="h-4 w-4 text-blue-500" />}
         />
@@ -36,7 +36,7 @@ export default function Page() {
 
         <MetricCard
           count={22}
-          label="created"
+          label="completed"
           timeframe="in the last 7 days"
           icon={<PlusCircle className="h-4 w-4 text-purple-500" />}
         />
@@ -44,7 +44,7 @@ export default function Page() {
         <button>
         <MetricCard
           count={0}
-          label="due soon"
+          label="unassigned"
           timeframe="in the next 7 days"
           icon={<Clock className="h-4 w-4 text-yellow-500" />}
         />

@@ -102,7 +102,7 @@ export default function Kanbanboard() {
     <div className="min-h-screen  p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-end mb-4">
-          <Button onClick={addColumn} className="bg-zinc-800 hover:bg-zinc-700">
+          <Button onClick={addColumn} className="bg-white hover:bg-gray-300">
             <Plus className="h-4 w-4 mr-2" />
             Add Column
           </Button>

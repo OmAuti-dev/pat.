@@ -18,10 +18,10 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 const chartData = [
-  { status: "todo", tasks: 275, fill: "var(--color-todo)" },
-  { status: "pending", tasks: 200, fill: "var(--color-pending)" },
-  { status: "completed", tasks: 187, fill: "var(--color-completed)" },
-  { status: "unassigned", tasks: 173, fill: "var(--color-unassigned)" },
+  { status: "todo", tasks: 3, fill: "var(--color-todo)" },
+  { status: "pending", tasks: 22, fill: "var(--color-pending)" },
+  { status: "completed", tasks: 22, fill: "var(--color-completed)" },
+  { status: "unassigned", tasks: 0, fill: "var(--color-unassigned)" },
 ]
 
 const chartConfig = {
