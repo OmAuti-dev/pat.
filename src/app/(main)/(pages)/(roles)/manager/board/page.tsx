@@ -1,10 +1,16 @@
 import React from 'react'
 import Kanbanboard from './_components/kanbanboard'
+import { SidebarDemo } from '../../_components/sidebar'
 
 const page = () => {
   return (
-    <div className='pt-20'>
+    <div className=' min-h-screen'>
+      
+
+      <div className="  flex flex-col "></div>
         <Kanbanboard/>
+     
+      
     </div>
   )
 }

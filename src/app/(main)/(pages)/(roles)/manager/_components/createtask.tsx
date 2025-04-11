@@ -53,6 +53,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ onSuccess }) => {
         const errorMessage = result?.message || "Failed to create task"
         toast.error("Error creating task")
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       
       toast.error("An unexpected error occurred.")

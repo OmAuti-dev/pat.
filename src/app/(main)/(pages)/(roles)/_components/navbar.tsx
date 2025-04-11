@@ -1,39 +1,46 @@
-import { Card } from "@/components/ui/card";
-import CreateTaskButton from "@/app/(main)/(pages)/(roles)/manager/_components/create-taskbutton";
-import { SignOutButton } from "@clerk/nextjs";
+"use client"
+import { toggleSidebar } from '@/lib/sidebarSlice';
+import { RootState } from '@/lib/store';
+import { Bell, Menu, Search, Settings } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
-const Navbar = () => {
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+
+export const Navbar = () => {
+    const router = useRouter()
+    const dispatch = useDispatch();
+    const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isOpen);
+    const handleSettingsClick = () => {
+        router.push("/profile/settings")
+      }
   return (
-    <Card className=" fixed inset-x-0 top-0 z-40 backdrop-blur-md bg-card/50   py-4   gap-6   ">
-      <div className="flex items center">
-        <div className="flex w-full row justify-between items-center">
-          <div className="flex-0.5 px-10" />
-          <div className="flex-1 px-10">
-            <ul className=" md:flex flex-row items-center justify-center  gap-10 text-card-foreground  ">
-              <li className="text-primary font-medium">
-                <a href="#home">Yout Work(dropdown)</a>
-              </li>
-              <li>
-                <a href="#features">Teams</a>
-              </li>
-              <li>
-                <a href="#pricing">Calendar</a>
-              </li>
-              <li>
-                <a href="#faqs">Issues</a>
-              </li>
-              <li className="">
-                <CreateTaskButton />
-              </li>
-            </ul>
-          </div>
-          <div className="flex-1/2 flex justify-end px-10">
-            <SignOutButton />
+    <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <button  onClick={() => dispatch(toggleSidebar())} className="p-2 rounded-md hover:bg-accent md:hidden">
+            <Menu className="h-5 w-5" />
+            {isSidebarOpen && ""}
+          </button>
+          <div className="relative w-full md:w-80">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full pl-10 pr-4 py-2 rounded-md bg-input border border-input"
+            />
           </div>
         </div>
+        <div className="flex items-center gap-2 md:gap-4">
+          
+          <button className="p-2 rounded-md hover:bg-accent">
+            <Bell className="h-5 w-5" />
+          </button>
+          
+          <button className="p-2 rounded-md hover:bg-accent" onClick={handleSettingsClick}>
+            <Settings className="h-5 w-5" />
+          </button>
+        </div>
       </div>
-    </Card>
-  );
-};
+  )
+}
 
-export default Navbar;

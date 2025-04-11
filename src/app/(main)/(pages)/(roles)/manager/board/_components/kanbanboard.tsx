@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Circle, Plus, Pencil } from "lucide-react"
 import { TaskModal } from "./taskmodal"
 import { ColumnMenu } from "./columnmenu"
+import { SidebarDemo } from "../../../_components/sidebar"
 
 interface Task {
   id: string
@@ -99,8 +100,9 @@ export default function Kanbanboard() {
   }
 
   return (
-    <div className="min-h-screen  p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="  ">
+      <SidebarDemo>
+      <div className="w-full p-4">
         <div className="flex justify-end mb-4">
           <Button onClick={addColumn} className="bg-white hover:bg-gray-300">
             <Plus className="h-4 w-4 mr-2" />
@@ -225,7 +227,9 @@ export default function Kanbanboard() {
             )
           })}
         </div>
+      
       </div>
+      </SidebarDemo>
     </div>
   )
 }

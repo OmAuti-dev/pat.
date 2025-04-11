@@ -17,27 +17,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={font.className}>
         <ClerkProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ModalProvider>
-            <ReduxProvider>
+          <ReduxProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
               <UserFetcher />
-              {children}
-              </ReduxProvider>
-            </ModalProvider>
-            <Toaster position="bottom-right" reverseOrder={false} />
-          </ThemeProvider>
+              <ModalProvider>
+                {children}
+              </ModalProvider>
+              <Toaster position="bottom-right" reverseOrder={false} />
+            </ThemeProvider>
+          </ReduxProvider>
         </ClerkProvider>
       </body>
     </html>

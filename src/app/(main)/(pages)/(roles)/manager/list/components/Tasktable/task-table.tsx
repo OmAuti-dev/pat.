@@ -82,7 +82,7 @@ export default function TaskTable() {
               </TableCell>
               <TableCell>{task.category}</TableCell>
               <TableCell>
-                <TaskModal />
+                <TaskModal task={task} />
               </TableCell>
             </TableRow>
           ))}
