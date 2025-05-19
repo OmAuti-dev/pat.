@@ -14,7 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import TaskModal from "../TaskModal/task-modal";
 import { useEffect, useState } from "react";
-import { fetchTasks } from "@/action/fetchtasks";
+
 
  type Task = {
   _id: string;
@@ -47,12 +47,17 @@ export default function TaskTable() {
 
   const handleFetch = async () => {
     try {
-      const result = await fetchTasks();
-      setTasks(result.tasks);
+      const res = await fetch("/api/tasks");
+      if (!res.ok) throw new Error("Failed to fetch tasks");
+
+      const result = await res.json();
+      setTasks(result.tasks); // or just result, depending on your API response
     } catch (err) {
       console.error("Error fetching tasks:", err);
+    } finally {
+      // setLoading(false);
     }
-  };
+  }
   useEffect(() => {
     handleFetch();
   }, []);

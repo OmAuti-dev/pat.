@@ -3,8 +3,9 @@
 import { createContext, useContext, useState, type ReactNode } from "react"
 
 export interface Project {
-  id: string
-  designer: string
+  _id: string
+  projectName: string
+  assignedUsers: string
   task: string
   status: "completed" | "review" | "queue" | "progress"
   priority: "high" | "mid" | "low"

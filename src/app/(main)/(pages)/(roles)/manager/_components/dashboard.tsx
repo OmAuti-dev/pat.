@@ -9,8 +9,6 @@ import Projects from "./Dashboard/Projects";
 import Tasks from "./Dashboard/Tasks";
 import { Footer } from "../../_components/footer";
 import { Navbar } from "../../_components/navbar";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default function Dashboard() {
   const { selectedDesigner } = useDesigner();

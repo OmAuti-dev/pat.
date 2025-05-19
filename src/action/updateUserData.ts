@@ -2,7 +2,13 @@
 
 import { auth } from "@clerk/nextjs/server";
 
-export async function getUserData() {
+export async function updateUserData(updatedData: {
+  name?: string;
+  bio?: string;
+  email?: string;
+  phone?: string;
+  location?: string;
+}) {
   const { getToken } = await auth();
   const token = await getToken();
 
@@ -10,20 +16,21 @@ export async function getUserData() {
     throw new Error("Unauthorized: Missing token");
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/me`, {
-    method: "GET",
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify(updatedData),
   });
 
   if (!response.ok) {
     const text = await response.text();
     console.error("Failed Response:", text);
-    throw new Error("Failed to fetch user data");
+    throw new Error("Failed to update user data");
   }
 
   const data = await response.json();
-  return data.user; // because you are returning { success: true, user }
+  return data.updatedUser; // because your backend returns { success: true, updatedUser }
 }

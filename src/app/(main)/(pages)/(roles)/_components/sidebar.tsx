@@ -52,7 +52,9 @@ export default function Sidebar() {
         <div className="p-4 border-b flex items-center justify-between">
           <div className="flex items-center gap-2">
           <Command className="h-6 w-6" />
-            <h1 className="font-bold text-xl">PAT.</h1>
+          <Link href={"/"}>
+             <h1 className="font-bold text-xl">PAT.</h1>
+          </Link>
           </div>
           <button className="p-1 md:hidden" onClick={() => dispatch(toggleSidebar())}>
             <X className="h-6 w-6" />

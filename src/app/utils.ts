@@ -26,7 +26,7 @@ export const fetchUsers = async (getToken: () => Promise<string | null>) => {
       const token = await getToken(); // Get token from Clerk
       if (!token) throw new Error("Token not available");
   
-      const res = await fetch("https://ombackend-lqng.onrender.com/api/users", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const fetchUsers = async (getToken: () => Promise<string | null>) => {
       const token = await getToken();
       if (!token) throw new Error("Token not available");
   
-      const response = await fetch("https://ombackend-lqng.onrender.com/api/tasks", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

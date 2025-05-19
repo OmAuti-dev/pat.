@@ -5,13 +5,11 @@ import { createContext, useContext, useState, type ReactNode } from "react"
 export interface Designer {
   id: string
   name: string
-  avatar: string
   task: string
   status: "completed" | "review" | "queue" | "progress"
   priority: "high" | "mid" | "low"
   lastUpdated: string
   email: string
-  phone: string
   portfolio: string
   bio: string
   skills: string[]

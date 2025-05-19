@@ -1,11 +1,12 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Menu, Save } from "lucide-react"
 import { UserProvider, useUser } from "../../(roles)/_components/user-context"
+import Image from "next/image"
+import { useAuth } from "@clerk/nextjs";
 
 export default function ProfileSettingsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -24,6 +25,9 @@ export default function ProfileSettingsPage() {
 function ProfileSettingsContent({ toggleSidebar }: { toggleSidebar: () => void }) {
   const router = useRouter()
   const { user, updateUser } = useUser()
+  const [loading, setLoading] = useState(false);
+  const { getToken, isSignedIn } = useAuth();
+
   const [formData, setFormData] = useState({
     fullName: user.name,
     displayName: user.name,
@@ -41,26 +45,59 @@ function ProfileSettingsContent({ toggleSidebar }: { toggleSidebar: () => void }
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    updateUser({
-      ...user,
-      name: formData.fullName,
-      bio: formData.bio,
-      email: formData.email,
-      phone: formData.phone,
-      website: formData.website,
-      location: formData.location,
-      title: formData.title,
-    })
-
-    // Show success message
-    alert("Profile updated successfully!")
-
-    // Redirect to profile page
-    router.push("/profile")
-  }
-
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    setLoading(true); // 1. Start the loading spinner
+    const token = await getToken();
+    if(!token) {
+      return console.log('no token!')
+    }
+    try {
+      // 2. Prepare the updated data you want to send
+      const updatedUserData = {
+        name: formData.fullName,
+        bio: formData.bio,
+        email: formData.email,
+        phone: formData.phone,
+        website: formData.website,
+        location: formData.location,
+        title: formData.title,
+      };
+  
+      // 3. Send PATCH request to your backend
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/profile`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization' : `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedUserData),
+      });
+      
+      // 4. Handle server response
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
+      }
+      
+      const data = await response.json();
+      
+      // 5. Update the frontend user context if needed
+      updateUser(data.updatedUser); // ✅ Use updatedUser not user
+      
+      // 6. Show success message
+      alert("Profile updated successfully!");
+      
+      // 7. Redirect to profile page
+      router.push("/profile");
+      } catch (error: any) {
+        console.error("Update failed:", error);
+        alert(error.message || "Something went wrong while updating.");
+      } finally {
+        // 8. Always stop loading
+        setLoading(false);
+      }
+      
   return (
     <div className="p-3 md:p-6 space-y-6">
       <div className="flex justify-between items-center">
@@ -83,7 +120,7 @@ function ProfileSettingsContent({ toggleSidebar }: { toggleSidebar: () => void }
 
           <div className="flex items-center gap-4 mb-6">
             <div className="w-24 h-24 rounded-full overflow-hidden">
-              <img
+              <Image
                 src={user.avatar || "/placeholder.svg?height=96&width=96"}
                 alt={user.name}
                 className="w-full h-full object-cover"

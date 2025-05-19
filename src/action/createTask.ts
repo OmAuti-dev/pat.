@@ -11,7 +11,7 @@ export async function createTask(taskData : TaskData): Promise<any> {
   }
 
   const response = await fetch(
-    "https://ombackend-lqng.onrender.com/api/tasks",
+    `${process.env.NEXT_PUBLIC_API_URL}/tasks`,
     {
       method: "POST",
       headers: {
